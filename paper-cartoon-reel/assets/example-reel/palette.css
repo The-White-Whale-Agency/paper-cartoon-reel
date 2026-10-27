@@ -1,0 +1,11 @@
+/* The first reel's :root block, kept as an example of a finished palette. Choose a fresh one per video. */
+
+:root {
+  --light: #f4ebd8; --paper: #efe3c8; --card: #fffaf0;
+  /* ink */        --ink: #2a2622; --muted: #8b7d63; --line: #cfc4ad;
+  /* accent */     --accent: #ecb085; --accent-d: #d9824f;
+  /* secondary */  --cool: #d5e3e8; --steel: #7f9db0;
+  /* dark scenes */ --dark: #0a141d; --dark2: #1a2832; --dark3: #26384a; --dark4: #22323f;
+  /* status */     --red: #c8453a; --green: #5f9b6e; --gold: #e3b73e;
+  /* shadow rgb */ --sh: 60, 40, 15;
+}

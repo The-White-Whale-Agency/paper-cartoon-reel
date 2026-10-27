@@ -1,0 +1,8 @@
+.DS_Store
+__pycache__/
+*.pyc
+.pydeps/
+node_modules/
+.hyperframes/
+renders/
+.vo/

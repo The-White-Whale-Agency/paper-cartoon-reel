@@ -1,0 +1,66 @@
+@font-face { font-family: "Fraunces"; src: url("assets/fonts/Fraunces-Variable.ttf"); font-weight: 100 900; font-style: normal; }
+@font-face { font-family: "Fraunces"; src: url("assets/fonts/Fraunces-Italic-Variable.ttf"); font-weight: 100 900; font-style: italic; }
+@font-face { font-family: "Inter"; src: url("assets/fonts/Inter-Variable.ttf"); font-weight: 100 900; font-style: normal; }
+
+/* PALETTE: rewrite this whole block for EVERY video (choose colours for the topic, mood and audience; do not reuse
+   the previous video's). Everything in style.css, art.js props and captions reads these tokens. Keep text/background
+   contrast high: captions and plaques must stay readable at phone size. Slots, not colour names: "light" may be any
+   light surface, "dark" any dark one. */
+:root {
+  /* surfaces */   --light: #f4ebd8; --paper: #efe3c8; --card: #fffaf0;
+  /* ink */        --ink: #2a2622; --muted: #8b7d63; --line: #cfc4ad;
+  /* accent */     --accent: #ecb085; --accent-d: #d9824f;
+  /* secondary */  --cool: #d5e3e8; --steel: #7f9db0;
+  /* dark scenes */ --dark: #0a141d; --dark2: #1a2832; --dark3: #26384a; --dark4: #22323f;
+  /* status */     --red: #c8453a; --green: #5f9b6e; --gold: #e3b73e;
+  /* shadow rgb */ --sh: 60, 40, 15;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--dark); }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Inter", sans-serif; color: var(--ink); }
+
+/* ---- scenes ---- */
+.scene { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; background: var(--light); }
+.scene .bg { position: absolute; inset: 0; }
+.dots { background: radial-gradient(circle, rgba(var(--sh),.10) 2.4px, transparent 3px) 0 0 / 46px 46px; }
+.grain { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: multiply; opacity: .9;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .27  0 0 0 0 .18  0 0 0 .13 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+.vign { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 50% 45%, transparent 55%, rgba(var(--sh),.22) 100%); }
+.abs { position: absolute; }
+.ring { position: absolute; border-radius: 50%; border: 10px solid color-mix(in srgb, var(--accent-d) 14%, transparent); }
+
+/* ---- header plaque ---- */
+.hdr { position: absolute; left: 90px; top: 150px; width: 900px; padding: 30px 20px 26px; text-align: center; background: var(--paper);
+  border-radius: 10px; box-shadow: 0 10px 0 rgba(var(--sh),.16), 0 24px 40px rgba(var(--sh),.18);
+  font: 900 70px/1.02 "Inter", sans-serif; letter-spacing: -.02em; text-transform: uppercase; color: var(--ink); }
+.hdr::before, .hdr::after { content: ""; position: absolute; top: 50%; width: 14px; height: 14px; margin-top: -7px; border-radius: 50%; background: rgba(var(--sh),.25); }
+.hdr::before { left: 20px; } .hdr::after { right: 20px; }
+.hdr.dark { background: var(--dark3); color: var(--light); box-shadow: 0 10px 0 rgba(0,0,0,.35), 0 24px 40px rgba(0,0,0,.35); }
+.hdr.dark::before, .hdr.dark::after { background: rgba(255,255,255,.2); }
+
+/* ---- paper cards ---- */
+.card { position: absolute; background: var(--card); border-radius: 16px; box-shadow: 0 8px 0 rgba(var(--sh),.14), 0 22px 36px rgba(var(--sh),.16); overflow: hidden; }
+.card.dk { background: var(--dark4); color: var(--light); box-shadow: 0 8px 0 rgba(0,0,0,.35), 0 22px 36px rgba(0,0,0,.3); }
+.bar { position: absolute; border-radius: 6px; background: var(--line); }
+.tcenter { text-align: center; }
+.lbl { font: 800 28px/1 "Inter", sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.big { font: 900 150px/1 "Inter", sans-serif; font-variant-numeric: tabular-nums; letter-spacing: -.04em; color: var(--ink); }
+.serif { font-family: "Fraunces", serif; }
+
+/* ---- stamps ---- */
+.stamp { position: absolute; display: flex; align-items: center; justify-content: center; text-align: center; font: 900 76px/1 "Inter", sans-serif; letter-spacing: .04em;
+  text-transform: uppercase; padding: 14px 34px; border: 12px solid currentColor; border-radius: 18px; mix-blend-mode: multiply; opacity: .94; }
+.stamp.red { color: var(--red); } .stamp.green { color: var(--green); } .stamp.sm { font-size: 44px; border-width: 8px; padding: 8px 20px; border-radius: 12px; }
+
+/* ---- captions ---- */
+#caps { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+.cap { position: absolute; left: 0; width: 100%; top: 1478px; display: flex; justify-content: center; opacity: 0; }
+.cap .pill { display: flex; gap: 0 18px; padding: 20px 40px 22px; border-radius: 22px; background: color-mix(in srgb, var(--card) 96%, transparent); font: 800 72px/1.05 "Inter", sans-serif; letter-spacing: -.015em; color: var(--ink);
+  box-shadow: 0 8px 0 rgba(var(--sh),.18), 0 20px 30px rgba(0,0,0,.18); white-space: nowrap; }
+.cap .pill.dk { background: color-mix(in srgb, var(--dark2) 96%, transparent); color: var(--light); box-shadow: 0 8px 0 rgba(0,0,0,.4), 0 20px 30px rgba(0,0,0,.35); }
+.cap .kw { font-family: "Fraunces", serif; font-style: italic; font-weight: 800; color: var(--accent-d); }
+
+/* ---- characters / SVG ---- */
+svg { overflow: visible; }
+.tag { position: absolute; font: 800 26px/1 "Inter", sans-serif; letter-spacing: .1em; text-transform: uppercase; padding: 10px 16px; border-radius: 10px; background: var(--dark3); color: var(--light); white-space: nowrap; box-shadow: 0 5px 0 rgba(0,0,0,.25); }
+.sheen { position: absolute; inset: 0; background: linear-gradient(115deg, transparent 35%, rgba(255,255,255,.45) 50%, transparent 65%); }
